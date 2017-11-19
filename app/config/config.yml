@@ -68,12 +68,15 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 
-#fos_rest:
-#    body_converter:
-#        enabled: true
-#    view:
-#        formats: { json: true, xml: false, rss: false }
-#    service:
-#        serializer: jms_serializer
-#    serializer:
-#        serialize_null: true
+fos_rest:
+    format_listener:
+            enabled: true
+    routing_loader:
+        default_format: json
+        include_format: false
+    unauthorized_challenge: "Basic realm=\"Restricted Area\""
+    access_denied_listener:
+        # all requests using the 'json' format will return a 403 on an access denied violation
+        json: true
+
+nelmio_api_doc: ~
