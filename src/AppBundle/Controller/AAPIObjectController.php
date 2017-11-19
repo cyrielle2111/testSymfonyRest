@@ -58,7 +58,8 @@ abstract class AAPIObjectController extends Controller
         if (empty($object)){
             return new JsonResponse(null,404);
         }
-        $this->getDoctrine()->getManager()->persist($this->updateObject($request, $object));
+        $this->updateObject($request, $object);
+        $this->getDoctrine()->getManager()->persist($object);
         $this->getDoctrine()->getManager()->flush();
         return new JsonResponse($this->serializeObject($object));
     }
