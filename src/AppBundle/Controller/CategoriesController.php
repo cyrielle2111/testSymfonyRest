@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\IAPIObject;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -38,7 +37,7 @@ class CategoriesController extends AAPIObjectController
      *          {"name"="name",
      *          "dataType"="string",
      *          "required"=true,
-     *          "description"="The category new name"}
+     *          "description"="The new category name"}
      *     },
      *  )
      * @param Request $request

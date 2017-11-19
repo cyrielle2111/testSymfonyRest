@@ -13,3 +13,7 @@ Brands:
 Categories:
     type:     rest
     resource: '@AppBundle/Controller/CategoriesController.php'
+
+Products:
+    type:     rest
+    resource: '@AppBundle/Controller/ProductsController.php'

@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 abstract class AAPIObjectController extends Controller
 {
+    // TODO Checks on parameters for POST, PUT, DELETE
+
     /**
      * @return JsonResponse
      */
@@ -38,14 +40,30 @@ abstract class AAPIObjectController extends Controller
      * @param int $objectId
      * @return JsonResponse
      */
+    final protected function getObject($objectId){
+        $closure = \Closure::bind(
+            function ($object) {
+                return new JsonResponse($this->serializeObject($object));
+            },
+            $this
+        );
+        return $this->checkObjectAndExecute($closure, $objectId);
+    }
+
+    /**
+     * @param int $objectId
+     * @return JsonResponse
+     */
     final protected function deleteObject($objectId){
-        $object = $this->getDoctrineRepository()->find($objectId);
-        if (empty($object)){
-            return new JsonResponse(null,404);
-        }
-        $this->getDoctrine()->getManager()->remove($object);
-        $this->getDoctrine()->getManager()->flush();
-        return new JsonResponse();
+        $closure = \Closure::bind(
+            function ($object) {
+                $this->getDoctrine()->getManager()->remove($object);
+                $this->getDoctrine()->getManager()->flush();
+                return new JsonResponse();
+            },
+            $this
+        );
+        return $this->checkObjectAndExecute($closure, $objectId);
     }
 
     /**
@@ -54,14 +72,24 @@ abstract class AAPIObjectController extends Controller
      * @return JsonResponse
      */
     final protected function putObject(Request $request, $objectId){
+        $closure = \Closure::bind(
+            function ($object) use ($request){
+                $this->updateObject($request, $object);
+                $this->getDoctrine()->getManager()->persist($object);
+                $this->getDoctrine()->getManager()->flush();
+                return new JsonResponse($this->serializeObject($object));
+            },
+            $this
+        );
+        return $this->checkObjectAndExecute($closure, $objectId);
+    }
+
+    final private function checkObjectAndExecute(\Closure $callBack, $objectId){
         $object = $this->getDoctrineRepository()->find($objectId);
         if (empty($object)){
             return new JsonResponse(null,404);
         }
-        $this->updateObject($request, $object);
-        $this->getDoctrine()->getManager()->persist($object);
-        $this->getDoctrine()->getManager()->flush();
-        return new JsonResponse($this->serializeObject($object));
+        return $callBack($object);
     }
 
     /**
@@ -70,7 +98,7 @@ abstract class AAPIObjectController extends Controller
     abstract protected function getNewObject();
 
     /**
-     * @return mixed
+     * @return \Doctrine\Common\Persistence\ObjectRepository
      */
     abstract protected function getDoctrineRepository();
 

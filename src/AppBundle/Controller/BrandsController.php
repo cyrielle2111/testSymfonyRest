@@ -37,7 +37,7 @@ class BrandsController extends AAPIObjectController
      *          {"name"="name",
      *          "dataType"="string",
      *          "required"=true,
-     *          "description"="The brand new name"}
+     *          "description"="The new brand name"}
      *     },
      *  )
      * @param Request $request

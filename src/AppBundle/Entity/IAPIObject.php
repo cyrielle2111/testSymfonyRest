@@ -5,5 +5,4 @@ namespace AppBundle\Entity;
 
 interface IAPIObject
 {
-
 }
