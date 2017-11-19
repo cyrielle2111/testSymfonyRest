@@ -9,3 +9,7 @@ NelmioApiDocBundle:
 Brands:
     type:     rest
     resource: '@AppBundle/Controller/BrandsController.php'
+
+Categories:
+    type:     rest
+    resource: '@AppBundle/Controller/CategoriesController.php'
