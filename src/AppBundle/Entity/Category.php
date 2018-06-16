@@ -27,6 +27,29 @@ class Category implements IAPIObject
     private $name;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\JoinColumn(name="sub_category_id", referencedColumnName="id")
+     */
+    private $subCategoryId;
+
+    /**
+     * @return mixed
+     */
+    public function getSubCategoryId()
+    {
+        return $this->subCategoryId;
+    }
+
+    /**
+     * @param mixed $subCategoryId
+     */
+    public function setSubCategoryId($subCategoryId)
+    {
+        $this->subCategoryId = $subCategoryId;
+    }
+
+
+    /**
      * @return mixed
      */
     public function getId()

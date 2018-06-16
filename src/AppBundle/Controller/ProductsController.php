@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ProductsController extends AAPIObjectController
 {
-    // TODO : add pagination on GETs
+    // TODO : filters
     /**
      * @ApiDoc(
      *     section = "Products",
@@ -18,28 +18,6 @@ class ProductsController extends AAPIObjectController
      *     statusCodes={
      *          200="Success",
      *          401="Authentication failed",
-     *     },
-     *     parameters={
-     *          {"name"="start",
-     *          "dataType"="int",
-     *          "required"=false,
-     *          "description"="The new product name"},
-     *          {"name"="limit",
-     *          "dataType"="int",
-     *          "required"=false,
-     *          "description"="The new product description"},
-     *          {"name"="search",
-     *          "dataType"="string",
-     *          "required"=false,
-     *          "description"="The new product url"},
-     *          {"name"="order",
-     *          "dataType"="int",
-     *          "required"=false,
-     *          "description"="The new product category ids"},
-     *          {"name"="sort",
-     *          "dataType"="int",
-     *          "required"=false,
-     *          "description"="The new product brand id"},
      *     },
      *  )
      * @return \Symfony\Component\HttpFoundation\Response
@@ -192,8 +170,6 @@ class ProductsController extends AAPIObjectController
         return [
             'name' => $product->getName(),
             'description' => $product->getDescription(),
-            'url' => $product->getUrl(),
-            'md5' => md5($product->getId()),
             'id' => $product->getId(),
         ];
     }

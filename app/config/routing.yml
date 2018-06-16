@@ -6,10 +6,6 @@ NelmioApiDocBundle:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
     prefix:   /api/doc
 
-Brands:
-    type:     rest
-    resource: '@AppBundle/Controller/BrandsController.php'
-
 Categories:
     type:     rest
     resource: '@AppBundle/Controller/CategoriesController.php'

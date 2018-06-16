@@ -23,25 +23,30 @@ class Product implements IAPIObject
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Brand")
-     * @ORM\JoinColumn(name="brand_id", referencedColumnName="id")
+     * @ORM\Column(type="integer")
      */
-    private $brand;
+    private $price;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @return mixed
      */
-    private $active;
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param mixed $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $url;
 
     /**
      * @ORM\Column(type="text")
@@ -80,38 +85,6 @@ class Product implements IAPIObject
     /**
      * @return mixed
      */
-    public function getBrand()
-    {
-        return $this->brand;
-    }
-
-    /**
-     * @param mixed $brand
-     */
-    public function setBrand($brand)
-    {
-        $this->brand = $brand;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getActive()
-    {
-        return $this->active;
-    }
-
-    /**
-     * @param mixed $active
-     */
-    public function setActive($active)
-    {
-        $this->active = $active;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getName()
     {
         return $this->name;
@@ -123,22 +96,6 @@ class Product implements IAPIObject
     public function setName($name)
     {
         $this->name = $name;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUrl()
-    {
-        return $this->url;
-    }
-
-    /**
-     * @param mixed $url
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
     }
 
     /**
