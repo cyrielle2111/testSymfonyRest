@@ -181,9 +181,7 @@ class ProductsController extends AAPIObjectController
         /** @var Product $product */
         $product->setName($request->get('name'));
         $product->setDescription($request->get('description'));
-        $product->setUrl($request->get('url'));
         $product->setCategories($request->get('categories'));
-        $product->setBrand($request->get('brand'));
     }
 
 }

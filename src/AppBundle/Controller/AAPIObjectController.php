@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 abstract class AAPIObjectController extends Controller
 {
     // TODO Checks on parameters for POST, PUT, DELETE
-
     /**
      * @return JsonResponse
      */
@@ -103,6 +102,7 @@ abstract class AAPIObjectController extends Controller
     abstract protected function getDoctrineRepository();
 
     /**
+     * TODO : better to put the serializing function either in the doctrine object or in a service...
      * Serialize the objects
      * @param IAPIObject $object
      * @return array

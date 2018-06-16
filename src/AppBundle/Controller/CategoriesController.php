@@ -132,4 +132,15 @@ class CategoriesController extends AAPIObjectController
         $category->setName($request->get('name'));
     }
 
+    public function getTree(Request $request){
+        // TODO : 'select * from category where parent_id is null' to get the first level of categories'
+        /** @var Category[] $originCategories */
+        $originCategoriesArray = [];
+        foreach ($originCategories as $category){
+            $originCategoriesArray[] = $category->serializeSelf();
+        }
+        return new JsonResponse($originCategoriesArray);
+    }
+
+
 }

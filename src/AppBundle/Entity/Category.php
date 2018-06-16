@@ -27,25 +27,47 @@ class Category implements IAPIObject
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category")
-     * @ORM\JoinColumn(name="sub_category_id", referencedColumnName="id")
+     * One Category has Many Categories.
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
      */
-    private $subCategoryId;
+    private $children;
+
+    /**
+     * Many Categories have One .
+     * @ORM\ManyToOne(targetEntity="CategoryCategory", inversedBy="children")
+     */
+    private $parent;
 
     /**
      * @return mixed
      */
-    public function getSubCategoryId()
+    public function getChildren()
     {
-        return $this->subCategoryId;
+        return $this->children;
     }
 
     /**
-     * @param mixed $subCategoryId
+     * @param mixed $children
      */
-    public function setSubCategoryId($subCategoryId)
+    public function setChildren($children)
     {
-        $this->subCategoryId = $subCategoryId;
+        $this->children = $children;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param mixed $parent
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
     }
 
 
@@ -81,4 +103,15 @@ class Category implements IAPIObject
         $this->name = $name;
     }
 
+    public function serializeSelf(){
+        $serializedChildren =   [];
+        foreach ($this->children as $child){
+            $serializedChildren[] = $child->serializeSelf();
+        }
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'children' => $serializedChildren
+        ];
+    }
 }
