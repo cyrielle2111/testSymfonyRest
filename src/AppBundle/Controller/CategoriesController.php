@@ -132,6 +132,7 @@ class CategoriesController extends AAPIObjectController
         $category->setName($request->get('name'));
     }
 
+    // TODO annotations to route the WebService of category tree listing
     public function getTree(Request $request){
         // TODO : 'select * from category where parent_id is null' to get the first level of categories'
         /** @var Category[] $originCategories */

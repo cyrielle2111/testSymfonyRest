@@ -103,6 +103,10 @@ class Category implements IAPIObject
         $this->name = $name;
     }
 
+    /**
+     * Serialize the object and its children
+     * @return array
+     */
     public function serializeSelf(){
         $serializedChildren =   [];
         foreach ($this->children as $child){
